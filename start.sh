@@ -19,8 +19,8 @@ cleanup() {
     exit 0
 }
 
-# Set trap for cleanup when interrupted
-trap cleanup INT TERM
+# Set trap for cleanup when interrupted (Ctrl+C, terminal close, etc.)
+trap cleanup INT TERM HUP
 
 # Build the image
 docker build -t vhost-lab . || exit 1
@@ -49,4 +49,8 @@ docker run --rm --name vhost-lab-container -p $PORT:80 vhost-lab
 
 # If we get here, the container stopped normally
 cleanup
+
+# Final safety check - if we somehow get here, clean up anyway
+docker stop vhost-lab-container 2>/dev/null || true
+docker rm vhost-lab-container 2>/dev/null || true
 
