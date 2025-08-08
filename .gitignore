@@ -23,6 +23,9 @@ Thumbs.db
 *.tmp
 *.temp
 
+# Scripts
+cleanup.sh
+
 # Docker containers and images (for cleanup)
 # Uncomment if you want to ignore these
 # vhost-lab-container
