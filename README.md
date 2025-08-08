@@ -6,10 +6,8 @@ A simple lab for testing virtual host enumeration techniques.
 
 - **8 Hidden VHosts** with different response types
 - **Docker-based setup** for easy deployment
-- **Dynamic port allocation** (starts from 13100, finds next available)
 - **Multiple response codes**: 200, 403, 404, 500, 301 redirects
 - **Ready for popular tools**: ffuf, gobuster, etc.
-- **Educational content** with realistic scenarios
 
 ## 🚀 Quick Start
 
@@ -28,22 +26,11 @@ The lab starts and runs in the terminal. Press `Ctrl+C` to stop it.
 - Penetration testing tools (optional):
   - gobuster
   - ffuf
-  - dirb
   - SecLists wordlists
 
 ## 🧪 Testing
 
 Once the lab is running (port will be shown in startup message), test the hidden vhosts:
-
-```bash
-# Hidden vhosts to discover (replace PORT with actual port shown)
-curl -H "Host: admin.test.local" http://localhost:PORT/
-curl -H "Host: internal.test.local" http://localhost:PORT/
-curl -H "Host: api.test.local" http://localhost:PORT/
-curl -H "Host: forbidden.test.local" http://localhost:PORT/
-curl -H "Host: redirect.test.local" http://localhost:PORT/
-curl -H "Host: secure.test.local" http://localhost:PORT/
-```
 
 ## 🎯 Enumeration Techniques
 
@@ -56,51 +43,11 @@ gobuster vhost -u http://localhost:PORT -w /usr/share/wordlists/SecLists/Discove
 # With ffuf (replace PORT with actual port)
 ffuf -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt -u http://localhost:PORT -H "Host: FUZZ.test.local"
 
-# With dirb (replace PORT with actual port)
-dirb http://localhost:PORT -H "Host: admin.test.local"
 ```
-
-## 📂 Configured VHosts
-
-### Public
-- `a.test.local` - Public VHost A
-- `b.test.local` - Public VHost B
-
-### Hidden (targets)
-- `admin.test.local` - Admin panel (200)
-- `internal.test.local` - Internal system (200)
-- `api.test.local` - API endpoint (200)
-- `forbidden.test.local` - Protected area (403)
-- `redirect.test.local` - Redirect (301)
-- `secure.test.local` - Secure area (200)
-- `notfound.test.local` - Missing content (404)
-- `error.test.local` - Server error (500)
-
 ### Default
 - `default.test.local` - Catches non-matching requests
 
-## 🛠️ Development
 
-### Building manually
-```bash
-docker build -t vhost-lab .
-docker run --rm -p 8081:80 vhost-lab
-```
-
-### Project Structure
-```
-vhost-lab/
-├── Dockerfile          # Docker configuration
-├── httpd.conf          # Apache main configuration
-├── vhosts.conf         # Virtual host definitions
-├── start.sh            # Lab startup script
-├── sites/              # Web content for each vhost
-│   ├── admin/          # Admin panel
-│   ├── internal/       # Internal system
-│   ├── api/            # API endpoint
-│   └── ...             # Other vhosts
-└── README.md           # This file
-```
 
 ## 🤝 Contributing
 
