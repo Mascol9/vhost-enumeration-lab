@@ -7,7 +7,7 @@ A simple lab for testing virtual host enumeration techniques.
 - **8 Hidden VHosts** with different response types
 - **Docker-based setup** for easy deployment
 - **Multiple response codes**: 200, 403, 404, 500, 301 redirects
-- **Ready for popular tools**: gobuster, ffuf, dirb, etc.
+- **Ready for popular tools**: ffuf, gobuster, etc.
 - **Educational content** with realistic scenarios
 
 ## 🚀 Quick Start
