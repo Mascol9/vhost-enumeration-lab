@@ -2,6 +2,14 @@
 
 A simple lab for testing virtual host enumeration techniques.
 
+## 🎯 Features
+
+- **8 Hidden VHosts** with different response types
+- **Docker-based setup** for easy deployment
+- **Multiple response codes**: 200, 403, 404, 500, 301 redirects
+- **Ready for popular tools**: gobuster, ffuf, dirb, etc.
+- **Educational content** with realistic scenarios
+
 ## 🚀 Quick Start
 
 ```bash
@@ -9,6 +17,16 @@ A simple lab for testing virtual host enumeration techniques.
 ```
 
 The lab starts and runs in the terminal. Press `Ctrl+C` to stop it.
+
+## 📋 Prerequisites
+
+- Docker
+- Git (for cloning)
+- Penetration testing tools (optional):
+  - gobuster
+  - ffuf
+  - dirb
+  - SecLists wordlists
 
 ## 🧪 Testing
 
@@ -34,6 +52,9 @@ gobuster vhost -u http://localhost:8081 -w /usr/share/wordlists/SecLists/Discove
 
 # With ffuf
 ffuf -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt -u http://localhost:8081 -H "Host: FUZZ.test.local"
+
+# With dirb
+dirb http://localhost:8081 -H "Host: admin.test.local"
 ```
 
 ## 📂 Configured VHosts
@@ -54,3 +75,42 @@ ffuf -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.
 
 ### Default
 - `default.test.local` - Catches non-matching requests
+
+## 🛠️ Development
+
+### Building manually
+```bash
+docker build -t vhost-lab .
+docker run --rm -p 8081:80 vhost-lab
+```
+
+### Project Structure
+```
+vhost-lab/
+├── Dockerfile          # Docker configuration
+├── httpd.conf          # Apache main configuration
+├── vhosts.conf         # Virtual host definitions
+├── start.sh            # Lab startup script
+├── sites/              # Web content for each vhost
+│   ├── admin/          # Admin panel
+│   ├── internal/       # Internal system
+│   ├── api/            # API endpoint
+│   └── ...             # Other vhosts
+└── README.md           # This file
+```
+
+## 🤝 Contributing
+
+Feel free to contribute by:
+- Adding new vhost scenarios
+- Improving documentation
+- Adding new enumeration techniques
+- Reporting issues
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## ⚠️ Disclaimer
+
+This lab is for educational purposes only. Use only on systems you own or have explicit permission to test.
