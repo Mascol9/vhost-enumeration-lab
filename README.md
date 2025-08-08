@@ -6,6 +6,7 @@ A simple lab for testing virtual host enumeration techniques.
 
 - **8 Hidden VHosts** with different response types
 - **Docker-based setup** for easy deployment
+- **Dynamic port allocation** (starts from 13100, finds next available)
 - **Multiple response codes**: 200, 403, 404, 500, 301 redirects
 - **Ready for popular tools**: gobuster, ffuf, dirb, etc.
 - **Educational content** with realistic scenarios
@@ -17,6 +18,8 @@ A simple lab for testing virtual host enumeration techniques.
 ```
 
 The lab starts and runs in the terminal. Press `Ctrl+C` to stop it.
+
+**Note:** The lab automatically finds an available port starting from 13100. The actual port will be displayed when the lab starts.
 
 ## 📋 Prerequisites
 
@@ -30,16 +33,16 @@ The lab starts and runs in the terminal. Press `Ctrl+C` to stop it.
 
 ## 🧪 Testing
 
-Once the lab is running on `http://localhost:8081`, test the hidden vhosts:
+Once the lab is running (port will be shown in startup message), test the hidden vhosts:
 
 ```bash
-# Hidden vhosts to discover
-curl -H "Host: admin.test.local" http://localhost:8081/
-curl -H "Host: internal.test.local" http://localhost:8081/
-curl -H "Host: api.test.local" http://localhost:8081/
-curl -H "Host: forbidden.test.local" http://localhost:8081/
-curl -H "Host: redirect.test.local" http://localhost:8081/
-curl -H "Host: secure.test.local" http://localhost:8081/
+# Hidden vhosts to discover (replace PORT with actual port shown)
+curl -H "Host: admin.test.local" http://localhost:PORT/
+curl -H "Host: internal.test.local" http://localhost:PORT/
+curl -H "Host: api.test.local" http://localhost:PORT/
+curl -H "Host: forbidden.test.local" http://localhost:PORT/
+curl -H "Host: redirect.test.local" http://localhost:PORT/
+curl -H "Host: secure.test.local" http://localhost:PORT/
 ```
 
 ## 🎯 Enumeration Techniques
@@ -47,14 +50,14 @@ curl -H "Host: secure.test.local" http://localhost:8081/
 Use tools like:
 
 ```bash
-# With gobuster
-gobuster vhost -u http://localhost:8081 -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
+# With gobuster (replace PORT with actual port)
+gobuster vhost -u http://localhost:PORT -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
 
-# With ffuf
-ffuf -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt -u http://localhost:8081 -H "Host: FUZZ.test.local"
+# With ffuf (replace PORT with actual port)
+ffuf -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt -u http://localhost:PORT -H "Host: FUZZ.test.local"
 
-# With dirb
-dirb http://localhost:8081 -H "Host: admin.test.local"
+# With dirb (replace PORT with actual port)
+dirb http://localhost:PORT -H "Host: admin.test.local"
 ```
 
 ## 📂 Configured VHosts
