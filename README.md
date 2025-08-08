@@ -8,7 +8,7 @@ A simple lab for testing virtual host enumeration techniques.
 - **Docker-based setup** for easy deployment
 - **Dynamic port allocation** (starts from 13100, finds next available)
 - **Multiple response codes**: 200, 403, 404, 500, 301 redirects
-- **Ready for popular tools**: gobuster, ffuf, dirb, etc.
+- **Ready for popular tools**: ffuf, gobuster, etc.
 - **Educational content** with realistic scenarios
 
 ## 🚀 Quick Start
