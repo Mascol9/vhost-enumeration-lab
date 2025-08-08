@@ -1,0 +1,3 @@
+# Force 500 Internal Server Error by redirecting to non-existent file
+RewriteEngine On
+RewriteRule .* /non-existent-file [L]
